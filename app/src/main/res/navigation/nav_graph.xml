@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.appalarm.screens.splash.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_taskListScreenFragment"
+            app:destination="@id/taskListScreenFragment"
+            app:popUpTo="@id/splashScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskListScreenFragment"
+        android:name="com.example.appalarm.screens.task.list.TaskListScreenFragment"
+        android:label="fragment_task_list_screen"
+        tools:layout="@layout/fragment_task_list_screen" >
+        <action
+            android:id="@+id/action_taskListScreenFragment_to_taskAddScreenFragment"
+            app:destination="@id/taskAddScreenFragment" />
+        <action
+            android:id="@+id/action_taskListScreenFragment_to_taskDetailsScreenFragment"
+            app:destination="@id/taskDetailsScreenFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskAddScreenFragment"
+        android:name="com.example.appalarm.screens.task.add.TaskAddScreenFragment"
+        android:label="fragment_task_add_screen"
+        tools:layout="@layout/fragment_task_add_screen" />
+    <fragment
+        android:id="@+id/taskDetailsScreenFragment"
+        android:name="com.example.appalarm.screens.task.details.TaskDetailsScreenFragment"
+        android:label="fragment_task_details_screen"
+        tools:layout="@layout/fragment_task_details_screen" />
+</navigation>
