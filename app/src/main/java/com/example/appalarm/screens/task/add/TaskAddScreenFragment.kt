@@ -17,8 +17,7 @@ import java.util.Calendar
 @AndroidEntryPoint
 class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
 
-    private var startTimeHour: Int = 0
-    private var startTimeMinute: Int = 0
+    private var startTimeInMillis = 0
 
     private lateinit var binding: FragmentTaskAddScreenBinding
 
@@ -43,6 +42,13 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
                 findNavController().popBackStack()
             }
         }
+        viewModel.message.observe(this) {
+            if (it != null) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                binding.tvPackage.text = null
+                binding.etStartTime.text = null
+            }
+        }
     }
 
     private fun initViews() {
@@ -55,8 +61,8 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
                 requireContext(),
                 TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                     binding.etStartTime.setText("$hourOfDay : $minute")
-                    startTimeHour = hourOfDay
-                    startTimeMinute = minute
+                    startTimeInMillis =
+                        (hourOfDay * 3600000 + minute * 60000) - (startHour * 3600000 + startMinute * 60000)
                 },
                 startHour,
                 startMinute,
@@ -70,17 +76,16 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
 
         // packages
         val allPackages = getAllPackages()
-        val packageAdapter =
-            ArrayAdapter(
-                requireContext(),
-                R.layout.item_spinner_item,
-                allPackages
-            )
+        val packageAdapter = ArrayAdapter(
+            requireContext(),
+            R.layout.item_spinner_item,
+            allPackages
+        )
         binding.tvPackage.setAdapter(packageAdapter)
 
         binding.saveBtn.setOnClickListener {
-            val startTimeInMillis = (startTimeHour * 3600) + (startTimeMinute * 60)
             viewModel.insertTask(
+                requireContext(),
                 binding.tvPackage.text.toString(),
                 startTimeInMillis.toString()
             )

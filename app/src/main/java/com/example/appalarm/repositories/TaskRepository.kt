@@ -20,9 +20,15 @@ class TaskRepository @Inject constructor(private val db: AppDatabase) {
         }
     }
 
-    suspend fun checkTask(time: Long): TaskInfo? {
+    suspend fun getTask(): List<TaskInfo> {
         return withContext(Dispatchers.IO) {
-            db.taskDao().checkTask(time, false)
+            db.taskDao().getAllTask()
+        }
+    }
+
+    suspend fun deleteTask(task: TaskInfo) {
+        return withContext(Dispatchers.IO) {
+            db.taskDao().delete(task)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.appalarm.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,6 +16,9 @@ interface TaskDao {
     @Query("SELECT * FROM task_table WHERE start_time=:time")
     suspend fun check(time: Long): List<TaskInfo>
 
-    @Query("SELECT * FROM task_table WHERE start_time=:time and completed=:status")
-    suspend fun checkTask(time: Long, status: Boolean): TaskInfo?
+    @Query("SELECT * FROM task_table")
+    suspend fun getAllTask(): List<TaskInfo>
+
+    @Delete
+    suspend fun delete(task: TaskInfo)
 }

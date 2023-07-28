@@ -15,24 +15,37 @@ import timber.log.Timber
 class TaskListScreenViewModel @Inject constructor(
     private val repository: TaskRepository
 ) : ViewModel() {
-    private val _currentTask: MutableLiveData<TaskInfo?> by lazy {
-        MutableLiveData<TaskInfo?>()
+    private val _task: MutableLiveData<List<TaskInfo>> by lazy {
+        MutableLiveData<List<TaskInfo>>()
     }
 
-    val currentTask: LiveData<TaskInfo?>
-        get() = _currentTask
+    val task: LiveData<List<TaskInfo>?>
+        get() = _task
 
-    fun checkTask(
-        time: Long
-    ) = viewModelScope.launch {
+    private val _deleteSuccess: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>(false)
+    }
+
+    val deleteSuccess: LiveData<Boolean>
+        get() = _deleteSuccess
+
+    fun getTask() = viewModelScope.launch {
         try {
-            val response = repository.checkTask(time)
-
-            if (response != null) {
-                _currentTask.value = response
-            }
+            val response = repository.getTask()
+            _task.value = response
         } catch (e: Exception) {
             Timber.tag("Found").d(e)
+        }
+    }
+
+    fun deleteTask(
+        task: TaskInfo
+    ) = viewModelScope.launch {
+        try {
+            repository.deleteTask(task)
+            _deleteSuccess.postValue(true)
+        } catch (e: Exception) {
+            Timber.tag("error").d(e)
         }
     }
 }

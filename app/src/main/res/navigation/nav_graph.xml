@@ -37,5 +37,9 @@
         android:id="@+id/taskDetailsScreenFragment"
         android:name="com.example.appalarm.screens.task.details.TaskDetailsScreenFragment"
         android:label="fragment_task_details_screen"
-        tools:layout="@layout/fragment_task_details_screen" />
+        tools:layout="@layout/fragment_task_details_screen" >
+        <argument
+            android:name="taskId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
