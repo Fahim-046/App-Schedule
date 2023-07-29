@@ -17,7 +17,7 @@ import java.util.Calendar
 @AndroidEntryPoint
 class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
 
-    private var startTimeInMillis = 0
+    private lateinit var currentTime: Calendar
 
     private lateinit var binding: FragmentTaskAddScreenBinding
 
@@ -45,15 +45,13 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
         viewModel.message.observe(this) {
             if (it != null) {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                binding.tvPackage.text = null
-                binding.etStartTime.text = null
             }
         }
     }
 
     private fun initViews() {
         binding.startBtn.setOnClickListener {
-            val currentTime = Calendar.getInstance()
+            currentTime = Calendar.getInstance()
             val startHour = currentTime.get(Calendar.HOUR_OF_DAY)
             val startMinute = currentTime.get(Calendar.MINUTE)
 
@@ -61,8 +59,8 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
                 requireContext(),
                 TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
                     binding.etStartTime.setText("$hourOfDay : $minute")
-                    startTimeInMillis =
-                        (hourOfDay * 3600000 + minute * 60000) - (startHour * 3600000 + startMinute * 60000)
+                    currentTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                    currentTime.set(Calendar.MINUTE, minute)
                 },
                 startHour,
                 startMinute,
@@ -87,7 +85,7 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
             viewModel.insertTask(
                 requireContext(),
                 binding.tvPackage.text.toString(),
-                startTimeInMillis.toString()
+                currentTime.timeInMillis
             )
         }
     }

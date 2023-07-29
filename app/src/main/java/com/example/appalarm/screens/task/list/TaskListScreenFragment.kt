@@ -96,4 +96,9 @@ class TaskListScreenFragment : Fragment(R.layout.fragment_task_list_screen) {
             }
             .show()
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getTask()
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.appalarm.screens.task.add
 
+import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
@@ -46,13 +47,13 @@ class TaskAddScreenViewModel @Inject constructor(
         return true
     }
 
+    @SuppressLint("ScheduleExactAlarm")
     fun insertTask(
         context: Context,
         name: String,
-        time: String
+        time: Long
     ) = viewModelScope.launch {
-        val timeInMillis = time.toLong()
-        val response = repository.checkSameTime(timeInMillis)
+        val response = repository.checkSameTime(time)
         if (!isValid(name) && response.isEmpty()) {
             return@launch
         }
@@ -61,22 +62,25 @@ class TaskAddScreenViewModel @Inject constructor(
             return@launch
         }
         try {
-            repository.addTask(TaskInfo(0, name, timeInMillis))
+            repository.addTask(TaskInfo(0, name, time))
             _success.value = true
-            val alarmManager =
-                context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+            val addedTask = repository.getTaskByTime(time)
+
+            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
             val openIntent = Intent(context, AppOpenReceiver::class.java)
             openIntent.putExtra("packageName", name)
+            openIntent.putExtra("id", addedTask.id.toString())
+            openIntent.putExtra("time", time.toString())
             val pendingOpenIntent = PendingIntent.getBroadcast(
                 context,
-                timeInMillis.toInt(),
+                time.toInt(),
                 openIntent,
                 PendingIntent.FLAG_IMMUTABLE
             )
             alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + timeInMillis,
+                time,
                 pendingOpenIntent
             )
         } catch (e: Exception) {
