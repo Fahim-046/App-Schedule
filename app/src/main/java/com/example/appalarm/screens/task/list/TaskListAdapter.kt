@@ -6,6 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appalarm.databinding.TaskItemBinding
 import com.example.appalarm.models.TaskInfo
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class TaskListAdapter(
     private val onClick: (TaskInfo) -> Unit
@@ -29,6 +32,10 @@ class TaskListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TaskInfo) {
+            val pattern: DateFormat = SimpleDateFormat("dd/MM/yyyy hh:mm a")
+            val date = Date(item.startTime)
+            val result = pattern.format(date)
+
             binding.packageName.text = item.packageName
             if (item.isCompleted) {
                 binding.statusName.text = "Completed"
@@ -39,6 +46,7 @@ class TaskListAdapter(
             binding.root.setOnClickListener {
                 onClick(item)
             }
+            binding.scheduleTime.text = "$result"
         }
 
         companion object {

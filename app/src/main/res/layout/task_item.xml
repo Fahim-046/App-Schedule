@@ -10,31 +10,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="8dp"
-        android:layout_marginHorizontal="8dp">
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginVertical="8dp">
 
         <TextView
             android:id="@+id/package_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Package Name: "
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="8dp"
-            android:textStyle="bold"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/package_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/package_title"
-            app:layout_constraintStart_toEndOf="@id/package_title"
+            android:text="com.iiuc.bd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.03"
-            android:text="com.iiuc.bd"/>
+            app:layout_constraintStart_toEndOf="@id/package_title"
+            app:layout_constraintTop_toTopOf="@id/package_title" />
 
         <TextView
             android:id="@+id/status_title"
@@ -47,17 +48,39 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/package_title"
             app:layout_constraintTop_toBottomOf="@id/package_title" />
+
         <TextView
             android:id="@+id/status_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/status_title"
-            app:layout_constraintStart_toEndOf="@id/status_title"
+            android:text="Completed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.03"
-            android:text="Completed"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintStart_toEndOf="@id/status_title"
+            app:layout_constraintTop_toTopOf="@id/status_title" />
+        <TextView
+            android:id="@+id/time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Time: "
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/status_title"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/status_title"
+            app:layout_constraintTop_toBottomOf="@id/status_title" />
 
+        <TextView
+            android:id="@+id/schedule_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8:50 pm"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/time_title"
+            app:layout_constraintTop_toTopOf="@id/time_title"
+            app:layout_constraintHorizontal_bias="0.02"
+            android:textColor="@color/black"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.cardview.widget.CardView>

@@ -43,4 +43,10 @@ class TaskRepository @Inject constructor(private val db: AppDatabase) {
             db.taskDao().getTaskByTime(time)
         }
     }
+
+    suspend fun getUncompletedTask(): List<TaskInfo> {
+        return withContext(Dispatchers.IO) {
+            db.taskDao().getUncompletedTask(false)
+        }
+    }
 }

@@ -63,7 +63,6 @@ class TaskAddScreenViewModel @Inject constructor(
         }
         try {
             repository.addTask(TaskInfo(0, name, time))
-            _success.value = true
 
             val addedTask = repository.getTaskByTime(time)
 
@@ -84,7 +83,9 @@ class TaskAddScreenViewModel @Inject constructor(
                 pendingOpenIntent
             )
         } catch (e: Exception) {
-            Timber.tag("error_message").d(e)
+            Timber.e(e)
         }
+
+        _success.value = true
     }
 }

@@ -61,6 +61,7 @@ class TaskAddScreenFragment : Fragment(R.layout.fragment_task_add_screen) {
                     binding.etStartTime.setText("$hourOfDay : $minute")
                     currentTime.set(Calendar.HOUR_OF_DAY, hourOfDay)
                     currentTime.set(Calendar.MINUTE, minute)
+                    currentTime.set(Calendar.SECOND, 0)
                 },
                 startHour,
                 startMinute,
