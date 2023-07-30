@@ -28,7 +28,4 @@ interface TaskDao {
 
     @Query("SELECT * FROM task_table WHERE start_time=:time")
     suspend fun getTaskByTime(time: Long): TaskInfo
-
-    @Query("SELECT * FROM task_table WHERE completed=:status")
-    suspend fun getUncompletedTask(status: Boolean): List<TaskInfo>
 }
