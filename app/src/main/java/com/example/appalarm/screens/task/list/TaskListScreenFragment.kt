@@ -1,20 +1,14 @@
 package com.example.appalarm.screens.task.list
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.appalarm.AppOpenReceiver
 import com.example.appalarm.R
 import com.example.appalarm.databinding.FragmentTaskListScreenBinding
 import com.example.appalarm.models.TaskInfo
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -76,25 +70,11 @@ class TaskListScreenFragment : Fragment(R.layout.fragment_task_list_screen) {
     }
 
     private fun adapterOnClick(task: TaskInfo) {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Do you want to cancel this schedule?")
-            .setNegativeButton("No", null)
-            .setPositiveButton("Yes") { _, _ ->
-                val alarmManager =
-                    requireActivity().getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
-                val openIntent = Intent(context, AppOpenReceiver::class.java)
-                openIntent.putExtra("packageName", task.packageName)
-                val pendingOpenIntent = PendingIntent.getBroadcast(
-                    context,
-                    task.startTime.toInt(),
-                    openIntent,
-                    PendingIntent.FLAG_IMMUTABLE
-                )
-                alarmManager.cancel(pendingOpenIntent)
-                viewModel.deleteTask(task)
-            }
-            .show()
+        val action =
+            TaskListScreenFragmentDirections.actionTaskListScreenFragmentToTaskUpdateFragment(
+                task.id
+            )
+        findNavController().navigate(action)
     }
 
     override fun onResume() {

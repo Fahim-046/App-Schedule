@@ -28,4 +28,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM task_table WHERE start_time=:time")
     suspend fun getTaskByTime(time: Long): TaskInfo
+
+    @Query("SELECT * FROM task_table WHERE id =:taskId")
+    suspend fun getTaskById(taskId: Int): TaskInfo
 }

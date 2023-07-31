@@ -24,10 +24,21 @@
         <action
             android:id="@+id/action_taskListScreenFragment_to_taskAddScreenFragment"
             app:destination="@id/taskAddScreenFragment" />
+        <action
+            android:id="@+id/action_taskListScreenFragment_to_taskUpdateFragment"
+            app:destination="@id/taskUpdateFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskAddScreenFragment"
         android:name="com.example.appalarm.screens.task.add.TaskAddScreenFragment"
         android:label="fragment_task_add_screen"
         tools:layout="@layout/fragment_task_add_screen" />
+    <fragment
+        android:id="@+id/taskUpdateFragment"
+        android:name="com.example.appalarm.screens.task.update.TaskUpdateFragment"
+        android:label="fragment_task_update"
+        tools:layout="@layout/fragment_task_update" >
+        <argument android:name="taskId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -43,4 +43,10 @@ class TaskRepository @Inject constructor(private val db: AppDatabase) {
             db.taskDao().getTaskByTime(time)
         }
     }
+
+    suspend fun getTaskById(taskId: Int): TaskInfo {
+        return withContext(Dispatchers.IO) {
+            db.taskDao().getTaskById(taskId)
+        }
+    }
 }

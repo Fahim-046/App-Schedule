@@ -46,6 +46,7 @@ class TaskListAdapter(
             binding.root.setOnClickListener {
                 onClick(item)
             }
+
             binding.scheduleTime.text = "$result"
         }
 

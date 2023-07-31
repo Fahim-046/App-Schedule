@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".screens.task.add.TaskAddScreenFragment">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/add_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/appColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/baseline_arrow_back_24"
+        app:title="Update Task"
+        app:titleCentered="true"
+        app:titleTextColor="@color/white" />
+
+    <LinearLayout
+        android:id="@+id/package_name_select"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/add_toolbar">
+
+        <TextView
+            android:id="@+id/tv_package"
+            style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Package name"
+            android:background="@drawable/rectangle_shape">
+
+        </TextView>
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/start_time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/package_name_select"
+        app:layout_constraintStart_toStartOf="@id/package_name_select"
+        app:layout_constraintTop_toBottomOf="@id/package_name_select">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/start_time_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Update start time">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_start_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/start_btn"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/white"
+            android:src="@drawable/baseline_access_time_24"
+            app:tint="@color/appColor" />
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/appColor"
+        android:text="Update Task"
+        app:layout_constraintEnd_toEndOf="@id/start_time"
+        app:layout_constraintStart_toStartOf="@id/start_time"
+        app:layout_constraintTop_toBottomOf="@id/start_time" />
+
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#D6190B"
+        android:text="Delete Task"
+        app:layout_constraintEnd_toEndOf="@id/save_btn"
+        app:layout_constraintStart_toStartOf="@id/save_btn"
+        app:layout_constraintTop_toBottomOf="@id/save_btn" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
