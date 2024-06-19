@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "Task_table")
+
 data class TaskInfo(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
